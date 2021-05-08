@@ -14,8 +14,8 @@ android {
         testInstrumentationRunnerArguments
         aaptOptions.cruncherEnabled = false
         applicationId "com.meuus90.zzim"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 23
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -25,10 +25,8 @@ android {
         testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "Zzim-${variant.name}-${variant.versionName}.apk"
-        }
+    buildFeatures {
+        viewBinding true
     }
 
     buildTypes {
@@ -78,6 +76,8 @@ android {
             dimension "default"
             manifestPlaceholders = [appNameGradle: "@string/app_name"]
             manifestPlaceholders = [appLabel: "@string/app_name"]
+
+            buildConfigField "String", "restApiServer", "\"http://d2bab9i9pr8lds.cloudfront.net/api/\""
         }
 
         dev {
@@ -85,6 +85,8 @@ android {
             applicationIdSuffix = ".dev"
             manifestPlaceholders = [appNameGradle: "@string/app_name"]
             manifestPlaceholders = [appLabel: "@string/app_name"]
+
+            buildConfigField "String", "restApiServer", "\"http://d2bab9i9pr8lds.cloudfront.net/api/\""
         }
     }
 
