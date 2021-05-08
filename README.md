@@ -4,7 +4,7 @@
 ## 체크리스트
 - [X] 프로젝트 세팅
 - [X] README 초안 작성
-- [ ] CI 세팅 (GitHub Action / branch develop)
+- [X] CI 세팅 (GitHub Action / branch develop)
 - [ ] gradle 세팅
 - [ ] DI 세팅
 - [ ] View 세팅 (UI Layout)
