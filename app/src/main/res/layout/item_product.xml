@@ -7,21 +7,6 @@
     android:layout_height="wrap_content"
     android:paddingBottom="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/v_image"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintDimensionRatio="162:194"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_product_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:background="@color/placeHolderColor0" />
-    </androidx.cardview.widget.CardView>
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_sale"
         style="@style/ProductSale"
@@ -86,4 +71,22 @@
         app:layout_constraintStart_toEndOf="@+id/tv_new"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         tools:text="1,023개 구매중" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/v_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_product_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            tools:background="@color/placeHolderColor0" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

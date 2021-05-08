@@ -3,7 +3,6 @@ package com.meuus90.zzim.view.activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.meuus90.zzim.R
 import com.meuus90.zzim.databinding.ActivityMainBinding
@@ -24,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.fragmentContainer.let {
+        binding.viewPager.let {
             it.adapter = object : FragmentStateAdapter(this) {
                 override fun getItemCount(): Int {
                     return fragments.size
@@ -34,8 +33,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     return fragments[position]
                 }
             }
+            it.isUserInputEnabled = false
         }
 
-        binding.bottomNavigation.selectedItemId = 0
+        with(binding) {
+            bottomNavigation.selectedItemId = 0
+            bottomNavigation.setOnNavigationItemSelectedListener {
+                viewPager.currentItem = when (it.itemId) {
+                    R.id.nav_home -> {
+                        toolbar.title = getString(R.string.title_home)
+                        0
+                    }
+                    else -> {
+                        toolbar.title = getString(R.string.title_zzim)
+                        1
+                    }
+                }
+                true
+            }
+        }
     }
 }

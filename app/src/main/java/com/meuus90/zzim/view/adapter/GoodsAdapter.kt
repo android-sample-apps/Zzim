@@ -4,40 +4,30 @@ import android.content.Context
 import android.graphics.Color
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.PrecomputedTextCompat
-import androidx.core.widget.TextViewCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.meuus90.zzim.R
 import com.meuus90.zzim.common.BigDecimalExt.formatNumberString
+import com.meuus90.zzim.common.ViewExt.gone
+import com.meuus90.zzim.common.ViewExt.show
 import com.meuus90.zzim.databinding.ItemProductBinding
-import com.meuus90.zzim.model.data.Goods
+import com.meuus90.zzim.model.data.response.Goods
 import com.meuus90.zzim.view.BaseActivity
-import com.meuus90.zzim.view.scheduler.UIJobScheduler
 
 class GoodsAdapter(
     private val context: Context,
     val doOnClick: (goods: Goods) -> Unit
 ) : PagingDataAdapter<Goods, BaseViewHolder<Goods>>(DIFF_CALLBACK) {
     companion object {
-        private val PAYLOAD_TITLE = Any()
+        private val DIFF_CALLBACK =
+            object : DiffUtil.ItemCallback<Goods>() {
+                override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean =
+                    oldItem.id == newItem.id
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Goods>() {
-            override fun areItemsTheSame(oldItem: Goods, newItem: Goods): Boolean =
-                oldItem.id == newItem.id
-
-            override fun areContentsTheSame(oldItem: Goods, newItem: Goods): Boolean =
-                oldItem == newItem
-
-            override fun getChangePayload(oldItem: Goods, newItem: Goods): Any? =
-                if (sameExceptTitle(oldItem, newItem)) PAYLOAD_TITLE else null
-        }
-
-        private fun sameExceptTitle(oldItem: Goods, newItem: Goods) =
-            oldItem.copy(id = newItem.id) == newItem
+                override fun areContentsTheSame(oldItem: Goods, newItem: Goods): Boolean =
+                    oldItem == newItem
+            }
     }
 
     override fun onCreateViewHolder(
@@ -79,69 +69,28 @@ class GoodsAdapter(
                 R.drawable.placeholder4,
                 R.drawable.placeholder5
             )
-            val coroutineScope = (adapter.context as BaseActivity<*>).lifecycleScope
 
-            with(binding) {
-                UIJobScheduler.submitJob(coroutineScope) {
-                    adapter.context.glideRequestManager
-                        .asBitmap().clone()
-                        .load(item.image)
-                        .placeholder(placeholderResList[position % 6])
-                        .dontAnimate()
-                        .into(ivProductImage)
-                }
+            (adapter.context as BaseActivity<*>).glideRequestManager
+                .asBitmap().clone()
+                .load(item.image)
+                .placeholder(placeholderResList[position % 6])
+                .dontAnimate()
+                .into(binding.ivProductImage)
 
-                if (item.isSale()) tvSale.visibility = View.VISIBLE
-                else tvSale.visibility = View.GONE
-                UIJobScheduler.submitJob(coroutineScope) {
-                    tvSale.setTextFuture(
-                        PrecomputedTextCompat.getTextFuture(
-                            item.getSale().formatNumberString(),
-                            TextViewCompat.getTextMetricsParams(tvSale),
-                            null
-                        )
-                    )
-                }
+            if (item.isSale()) binding.tvSale.show() else binding.tvSale.gone()
+            binding.tvSale.text =
+                context.getString(R.string.product_percent, item.getSale().formatNumberString())
 
-                UIJobScheduler.submitJob(coroutineScope) {
-                    tvPrice.setTextFuture(
-                        PrecomputedTextCompat.getTextFuture(
-                            item.actual_price.formatNumberString(),
-                            TextViewCompat.getTextMetricsParams(tvPrice),
-                            null
-                        )
-                    )
-                }
+            binding.tvPrice.text = item.actual_price.formatNumberString()
+//                tvName.text = item.name
+            binding.tvName.text = item.id
 
-                UIJobScheduler.submitJob(coroutineScope) {
-                    tvName.setTextFuture(
-                        PrecomputedTextCompat.getTextFuture(
-                            item.name,
-                            TextViewCompat.getTextMetricsParams(tvName),
-                            null
-                        )
-                    )
-                }
+            if (item.is_new) binding.tvNew.show() else binding.tvNew.gone()
+            binding.tvBuying.text =
+                context.getString(R.string.product_buying, item.sell_count.formatNumberString())
 
-                if (item.is_new) tvNew.visibility = View.VISIBLE
-                else tvNew.visibility = View.GONE
-
-                UIJobScheduler.submitJob(coroutineScope) {
-                    tvBuying.setTextFuture(
-                        PrecomputedTextCompat.getTextFuture(
-                            context.getString(
-                                R.string.product_buying,
-                                item.sell_count.formatNumberString()
-                            ),
-                            TextViewCompat.getTextMetricsParams(tvBuying),
-                            null
-                        )
-                    )
-                }
-
-                holder.view.setOnClickListener {
-                    adapter.doOnClick(item)
-                }
+            holder.view.setOnClickListener {
+                adapter.doOnClick(item)
             }
         }
 

@@ -2,9 +2,13 @@ package com.meuus90.zzim.di.module
 
 import android.app.Application
 import android.content.Context
-import androidx.multidex.BuildConfig
+import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.meuus90.zzim.BuildConfig
+import com.meuus90.zzim.common.LiveDataCallAdapterFactory
+import com.meuus90.zzim.model.source.local.Cache
+import com.meuus90.zzim.model.source.remote.api.RestAPI
 import com.orhanobut.logger.Logger
 import dagger.Module
 import dagger.Provides
@@ -15,15 +19,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-/**
- * A module for Android-specific dependencies which require a [Context] or
- * [android.app.Application] to create.
- */
 @Module
 class AppModule {
     companion object {
@@ -82,8 +84,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideGSon(): Gson {
-        return GsonBuilder()
-            .create()
+        return GsonBuilder().create()
     }
 
     @Provides
@@ -126,27 +127,31 @@ class AppModule {
         }
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideRestAPI(gson: Gson, okHttpClient: OkHttpClient): RestAPI {
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(BuildConfig.restApiServer)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .addCallAdapterFactory(LiveDataCallAdapterFactory())
-//            .client(okHttpClient)
-//            .build()
-//
-//        return retrofit.create(RestAPI::class.java)
-//    }
-//
-//    @Singleton
-//    @Provides
-//    internal fun provideCache(app: Application) =
-//        Room.databaseBuilder(app, Cache::class.java, "zzim_db.db")
-//            .fallbackToDestructiveMigration()
-//            .build()
-//
-//    @Singleton
-//    @Provides
-//    internal fun provideItemModelDao(cache: Cache) = cache.itemDao()
+    @Singleton
+    @Provides
+    fun provideRestAPI(gson: Gson, okHttpClient: OkHttpClient): RestAPI {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.restApiServer)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .client(okHttpClient)
+            .build()
+
+        return retrofit.create(RestAPI::class.java)
+    }
+
+    @Singleton
+    @Provides
+    internal fun provideCache(app: Application) =
+        Room.databaseBuilder(app, Cache::class.java, "zzim_db.db")
+            .fallbackToDestructiveMigration()
+            .build()
+
+    @Singleton
+    @Provides
+    internal fun provideGoodsDao(cache: Cache) = cache.goodsDao()
+
+    @Singleton
+    @Provides
+    internal fun provideBannerDao(cache: Cache) = cache.bannerDao()
 }

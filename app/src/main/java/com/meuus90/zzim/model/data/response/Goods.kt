@@ -1,4 +1,4 @@
-package com.meuus90.zzim.model.data
+package com.meuus90.zzim.model.data.response
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-@Entity(tableName = "Product")
+@Entity(tableName = "GoodsDoc")
 data class Goods(
     @field:PrimaryKey
     @field:ColumnInfo(name = "id") val id: String,
