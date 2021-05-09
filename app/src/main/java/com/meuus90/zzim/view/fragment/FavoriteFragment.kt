@@ -72,10 +72,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
                     }
                 }
             )
-
-            val layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
-            layoutManager.isItemPrefetchEnabled = true
-            recyclerView.layoutManager = layoutManager
         }
 
         lifecycleScope.launchWhenCreated {

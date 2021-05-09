@@ -43,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     internal lateinit var adapter: GoodsAdapter
 
+    @ExperimentalCoroutinesApi
     @SuppressLint("RestrictedApi")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -84,13 +85,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             )
 
-            val layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
-            layoutManager.isItemPrefetchEnabled = true
-            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int) = if (position == 0) 2 else 1
-            }
+            (recyclerView.layoutManager as GridLayoutManager).spanSizeLookup =
+                object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int) = if (position == 0) 2 else 1
+                }
 
-            recyclerView.layoutManager = layoutManager
             swipeLayout.setOnRefreshListener {
                 adapter.refresh()
             }
@@ -99,7 +98,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         lifecycleScope.launchWhenCreated {
             goodsViewModel.goods
-                .collect {
+                .collectLatest {
 //                    binding.recyclerView.show()
                     adapter.submitData(it)
                 }
@@ -122,7 +121,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
         lifecycleScope.launchWhenCreated {
-            @OptIn(ExperimentalCoroutinesApi::class)
             adapter.loadStateFlow
                 .collectLatest { loadStates ->
                     binding.swipeLayout.isRefreshing =
