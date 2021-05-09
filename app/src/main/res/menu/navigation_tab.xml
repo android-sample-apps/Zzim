@@ -6,7 +6,7 @@
         android:icon="@drawable/tab_home"
         android:title="@string/title_home" />
     <item
-        android:id="@+id/nav_my_asset"
+        android:id="@+id/nav_zzim"
         android:icon="@drawable/tab_zzim"
         android:title="@string/title_zzim" />
 </menu>
