@@ -1,4 +1,4 @@
-package com.meuus90.zzim.view
+package com.meuus90.zzim.view.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater

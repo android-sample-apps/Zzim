@@ -5,7 +5,6 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.meuus90.zzim.common.LiveEvent
 import com.meuus90.zzim.model.data.request.Query
-import com.meuus90.zzim.model.source.remote.api.RestAPI
 import com.meuus90.zzim.model.source.remote.repository.HomeRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest
@@ -16,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class GoodsViewModel
 @Inject
-constructor(private val repository: HomeRepository, val restAPI: RestAPI) : ViewModel() {
+constructor(private val repository: HomeRepository) : ViewModel() {
     lateinit var schemaLiveData: LiveEvent<Query>
 
     init {
@@ -28,7 +27,7 @@ constructor(private val repository: HomeRepository, val restAPI: RestAPI) : View
     @ExperimentalCoroutinesApi
     val goods = schemaLiveData.asFlow()
         .flatMapLatest {
-            repository.execute(viewModelScope, it)
+            repository.execute(viewModelScope)
         }
 
     fun pullTrigger(query: Query) {

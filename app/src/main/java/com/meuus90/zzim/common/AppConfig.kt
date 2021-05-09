@@ -8,5 +8,5 @@ object AppConfig {
     const val localInitialLoadSize = 20
     const val localPrefetchDistance = 10
 
-    const val roomVersionCode = 3
+    const val roomVersionCode = 5
 }

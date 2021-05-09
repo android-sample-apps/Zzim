@@ -150,8 +150,4 @@ class AppModule {
     @Singleton
     @Provides
     internal fun provideGoodsDao(cache: Cache) = cache.goodsDao()
-
-    @Singleton
-    @Provides
-    internal fun provideBannerDao(cache: Cache) = cache.bannerDao()
 }

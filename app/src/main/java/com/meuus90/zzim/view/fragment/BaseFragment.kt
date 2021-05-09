@@ -1,4 +1,4 @@
-package com.meuus90.zzim.view
+package com.meuus90.zzim.view.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.meuus90.zzim.di.Injectable
+import com.meuus90.zzim.view.activity.BaseActivity
 
 abstract class BaseFragment<T : ViewBinding> : Fragment(), Injectable {
     companion object {

@@ -8,9 +8,9 @@
 - [X] gradle 세팅
 - [X] DI 세팅
 - [X] View 세팅 (UI Layout)
-- [ ] Model 세팅 (Rspository)
-- [ ] ViewModel 세팅
-- [ ] Paging 적용
+- [X] Model 세팅 (Rspository)
+- [X] ViewModel 세팅
+- [X] Paging 적용
 - [ ] Firebase 연동 및 공유 기능 적용
 - [ ] Unit Test 테스트코드 작성
 - [ ] API 에러 타입 별 대응

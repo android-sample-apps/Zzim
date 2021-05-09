@@ -1,23 +1,24 @@
 package com.meuus90.zzim.view.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ViewUtils.dpToPx
-import com.meuus90.zzim.common.AppConfig
-import com.meuus90.zzim.common.GridSpacingItemDecoration
-import com.meuus90.zzim.common.ViewExt.show
+import com.google.android.material.internal.ViewUtils
 import com.meuus90.zzim.databinding.FragmentHomeBinding
 import com.meuus90.zzim.model.data.request.Query
-import com.meuus90.zzim.view.BaseFragment
+import com.meuus90.zzim.model.data.response.Goods
 import com.meuus90.zzim.view.adapter.GoodsAdapter
+import com.meuus90.zzim.viewmodel.FavoriteViewModel
 import com.meuus90.zzim.viewmodel.GoodsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import javax.inject.Inject
@@ -37,33 +38,59 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     @Inject
     internal lateinit var goodsViewModel: GoodsViewModel
 
+    @Inject
+    internal lateinit var favoriteViewModel: FavoriteViewModel
+
     internal lateinit var adapter: GoodsAdapter
 
     @SuppressLint("RestrictedApi")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter = GoodsAdapter(baseActivity) { goods ->
+        adapter = GoodsAdapter(baseActivity) { goods, isFavorite ->
+            if (isFavorite)
+                removeFavorite(goods)
+            else
+                addFavorite(goods)
         }
-
-        adapter.setHasStableIds(true)
         with(binding) {
             recyclerView.adapter = adapter
-//            recyclerView.setItemViewCacheSize(AppConfig.recyclerViewCacheSize)
-//            recyclerView.setHasFixedSize(false)
-//            recyclerView.isVerticalScrollBarEnabled = false
-//            recyclerView.addItemDecoration(
-//                GridSpacingItemDecoration(
-//                    2,
-//                    dpToPx(context, 12).toInt(),
-//                    true
-//                )
-//            )
+            recyclerView.addItemDecoration(
+                object : RecyclerView.ItemDecoration() {
+                    val spacing = ViewUtils.dpToPx(context, 6).toInt()
+
+                    override fun getItemOffsets(
+                        outRect: Rect,
+                        view: View,
+                        parent: RecyclerView,
+                        state: RecyclerView.State
+                    ) {
+                        val position = parent.getChildAdapterPosition(view)
+                        if (position > 0) {
+                            val spanIndex =
+                                (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
+                            if (spanIndex == 0) {
+                                outRect.left = spacing * 2
+                                outRect.right = spacing
+                            } else {
+                                outRect.left = spacing
+                                outRect.right = spacing * 2
+                            }
+
+                            outRect.top = spacing
+                        }
+                        outRect.bottom = spacing
+                    }
+                }
+            )
 
             val layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
-//            layoutManager.isItemPrefetchEnabled = true
-            recyclerView.layoutManager = layoutManager
+            layoutManager.isItemPrefetchEnabled = true
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int) = if (position == 0) 2 else 1
+            }
 
+            recyclerView.layoutManager = layoutManager
             swipeLayout.setOnRefreshListener {
                 adapter.refresh()
             }
@@ -72,9 +99,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         lifecycleScope.launchWhenCreated {
             goodsViewModel.goods
-                .collectLatest {
+                .collect {
 //                    binding.recyclerView.show()
                     adapter.submitData(it)
+                }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            favoriteViewModel.goodsFlow
+                .collectLatest {
+                    adapter.updateFavorite(it)
                 }
         }
 
@@ -83,14 +117,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 .distinctUntilChangedBy { it.append }
                 .collectLatest {
                     val state = it.append
-//                    if (state is LoadState.Error) // todo popup
-//                        updateErrorUI(state)
-//                    else {
-//                        introViewModel.getCollectionList(searchSchema.collection)
-//
-//                        recyclerView.show()
-//                        v_error.gone()
-//                    }
+                    //todo check error state
                 }
         }
 
@@ -106,7 +133,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initialize()
     }
 
-    private fun initialize(){
+    private fun initialize() {
         goodsViewModel.pullTrigger(Query())
+    }
+
+    private fun addFavorite(goods: Goods) {
+        favoriteViewModel.addFavorite(goods)
+    }
+
+    private fun removeFavorite(goods: Goods) {
+        favoriteViewModel.removeFavorite(goods)
     }
 }

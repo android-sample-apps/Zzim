@@ -9,7 +9,7 @@ import java.math.RoundingMode
 @Entity(tableName = "GoodsDoc")
 data class Goods(
     @field:PrimaryKey
-    @field:ColumnInfo(name = "id") val id: String,
+    @field:ColumnInfo(name = "id") val id: Int,
     @field:ColumnInfo(name = "name") val name: String,
     @field:ColumnInfo(name = "image") val image: String,
     @field:ColumnInfo(name = "is_new") val is_new: Boolean,
@@ -18,7 +18,7 @@ data class Goods(
     @field:ColumnInfo(name = "price") val price: BigDecimal
 ) {
     fun getSale() =
-        (price - actual_price).multiply(100.toBigDecimal()).divide(price, 0, RoundingMode.HALF_DOWN)
+        (actual_price - price).multiply(100.toBigDecimal()).divide(actual_price, 0, RoundingMode.HALF_DOWN)
 
-    fun isSale() = price == actual_price
+    fun isSale() = actual_price != price
 }

@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.meuus90.zzim.R
 import com.meuus90.zzim.databinding.ActivityMainBinding
-import com.meuus90.zzim.view.BaseActivity
-import com.meuus90.zzim.view.BaseFragment
+import com.meuus90.zzim.view.fragment.BaseFragment
 import com.meuus90.zzim.view.fragment.FavoriteFragment
 import com.meuus90.zzim.view.fragment.HomeFragment
 
@@ -37,20 +36,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         with(binding) {
-            bottomNavigation.selectedItemId = 0
             bottomNavigation.setOnNavigationItemSelectedListener {
+                tvToolbar.text = it.title
                 viewPager.currentItem = when (it.itemId) {
-                    R.id.nav_home -> {
-                        toolbar.title = getString(R.string.title_home)
-                        0
-                    }
-                    else -> {
-                        toolbar.title = getString(R.string.title_zzim)
-                        1
-                    }
+                    R.id.nav_home -> 0
+                    else -> 1
                 }
+                appbarLayout.setExpanded(true)
                 true
             }
+
+            bottomNavigation.selectedItemId = R.id.nav_home
         }
     }
 }

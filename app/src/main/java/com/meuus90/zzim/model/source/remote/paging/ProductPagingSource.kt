@@ -1,28 +1,39 @@
 package com.meuus90.zzim.model.source.remote.paging
 
 import androidx.paging.PagingSource
-import com.meuus90.zzim.model.data.response.Goods
+import androidx.paging.PagingState
+import com.meuus90.zzim.model.data.GoodsDataModel
 import com.meuus90.zzim.model.source.remote.api.RestAPI
-import javax.inject.Inject
-import javax.inject.Singleton
 
-
-class ProductPagingSource(private val restAPI: RestAPI) : PagingSource<String, Goods>() {
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, Goods> {
+class ProductPagingSource(private val restAPI: RestAPI) : PagingSource<Int, GoodsDataModel>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GoodsDataModel> {
         return try {
-            val goods: List<Goods> = if (params.key == null) {
+            val goods: List<GoodsDataModel> = if (params.key == null) {
                 val home = restAPI.getHome()
-                home.goods
+
+                val list = mutableListOf<GoodsDataModel>(GoodsDataModel.Header(home.banners))
+                list.addAll(home.goods.map {
+                    GoodsDataModel.Item(it)
+                })
+                list
             } else {
                 val home = restAPI.getNextGoods(params.key!!)
-                home.goods
-            }
 
+                home.goods.map {
+                    GoodsDataModel.Item(it)
+                }
+            }
+            val last = goods.last()
             LoadResult.Page(
-                data = goods, prevKey = null, nextKey = goods.last().id
+                data = goods, prevKey = null, nextKey =
+                if (last is GoodsDataModel.Item) last.goods.id else null
             )
         } catch (e: Exception) {
             LoadResult.Error(Throwable("Paging Error"))
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, GoodsDataModel>): Int {
+        return 0
     }
 }

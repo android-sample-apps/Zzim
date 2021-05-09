@@ -10,5 +10,5 @@ interface RestAPI {
     suspend fun getHome(): Home
 
     @GET("home/goods")
-    suspend fun getNextGoods(@Query("lastId") lastId: String): NextGoods
+    suspend fun getNextGoods(@Query("lastId") lastId: Int): NextGoods
 }
