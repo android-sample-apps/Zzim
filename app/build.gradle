@@ -180,7 +180,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidx_test_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     testImplementation 'io.mockk:mockk:1.10.6'
-    androidTestImplementation 'io.mockk:mockk-android:1.10.6'
+    androidTestImplementation 'io.mockk:mockk-agent-android:1.10.6'
     testImplementation 'org.mockito:mockito-inline:3.5.13'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     androidTestImplementation 'com.google.truth:truth:1.1.2'
