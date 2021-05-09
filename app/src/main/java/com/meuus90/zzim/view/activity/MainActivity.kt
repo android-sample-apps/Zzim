@@ -41,19 +41,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (intent.action == Intent.ACTION_VIEW) {
-            try {
-                intent.data?.getQueryParameter(AppConfig.keyFavorites)?.let { json ->
-                    val type = object : TypeToken<List<Goods>>() {}.type
-                    BaseData.gson().fromJson<List<Goods>>(json, type)?.let {
-                        replaceFavorites(it)
-                    }
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-
         binding.viewPager.let {
             it.adapter = object : FragmentStateAdapter(this) {
                 override fun getItemCount(): Int {
@@ -78,9 +65,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 true
             }
 
-            bottomNavigation.selectedItemId = R.id.nav_home
             setSupportActionBar(toolbar)
         }
+
+        var selectItemId = R.id.nav_home
+        if (intent.action == Intent.ACTION_VIEW) {
+            try {
+                intent.data?.getQueryParameter(AppConfig.keyFavorites)?.let { json ->
+                    val type = object : TypeToken<List<Goods>>() {}.type
+                    BaseData.gson().fromJson<List<Goods>>(json, type)?.let {
+                        replaceFavorites(it)
+                        selectItemId = R.id.nav_zzim
+                    }
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+        binding.bottomNavigation.selectedItemId = selectItemId
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
