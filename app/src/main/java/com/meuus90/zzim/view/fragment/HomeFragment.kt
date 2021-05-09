@@ -18,7 +18,6 @@ import com.meuus90.zzim.view.adapter.GoodsAdapter
 import com.meuus90.zzim.viewmodel.FavoriteViewModel
 import com.meuus90.zzim.viewmodel.GoodsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import javax.inject.Inject
@@ -116,7 +115,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 .distinctUntilChangedBy { it.append }
                 .collectLatest {
                     val state = it.append
-                    //todo check error state
+                    if (state is LoadState.Error)
+                        baseActivity.createDialog(state.error.message)
+                    // check error state
                 }
         }
 

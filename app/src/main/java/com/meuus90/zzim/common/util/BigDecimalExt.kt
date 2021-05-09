@@ -1,4 +1,4 @@
-package com.meuus90.zzim.common
+package com.meuus90.zzim.common.util
 
 import java.math.BigDecimal
 import java.text.NumberFormat

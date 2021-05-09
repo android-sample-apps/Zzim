@@ -1,5 +1,7 @@
 package com.meuus90.zzim.view.activity
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +9,7 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.annotation.GlideModule
+import com.meuus90.zzim.R
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
@@ -39,5 +42,14 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity(), HasAndroidIn
         super.onDestroy()
 
         _binding = null
+    }
+
+    fun createDialog(message: String?) {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.title_alert)
+            .setMessage(message)
+            .setPositiveButton(R.string.button_configm) { dialogInterface: DialogInterface, i: Int -> }
+            .create()
+            .show()
     }
 }

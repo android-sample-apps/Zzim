@@ -1,6 +1,7 @@
-package com.meuus90.zzim.common
+package com.meuus90.zzim.common.livedata
 
 import androidx.lifecycle.LiveData
+import com.meuus90.zzim.common.ApiResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType

@@ -4,6 +4,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-allopen'
 apply plugin: 'jacoco'
 apply plugin: "de.mannodermaus.android-junit5"
+apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -31,6 +33,7 @@ android {
 
     buildTypes {
         debug {
+            FirebasePerformance.instrumentationEnabled false
             lintOptions.checkReleaseBuilds false
             initWith debug
             jniDebuggable true
@@ -42,6 +45,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            FirebasePerformance.instrumentationEnabled false
+            signingConfig signingConfigs.debug // have to use keystore
             lintOptions.checkReleaseBuilds false
             initWith release
             minifyEnabled true
@@ -227,6 +232,13 @@ dependencies {
     implementation "com.github.bumptech.glide:annotations:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-dynamic-links-ktx'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-config'
+
     implementation "com.jakewharton.timber:timber:$timber_version"
     implementation "com.orhanobut:logger:$logger_version"
 }
@@ -244,6 +256,7 @@ task fullCoverageReport(type: JacocoReport) {
                       '**/*_MembersInjector.class',
                       '**/Dagger*Component.class',
                       '**/Dagger*Component$Builder.class',
+                      '**/AppFireBaseMessagingService.class',
                       '**/*_*Factory.class',
                       '**/*ComponentImpl.class',
                       '**/*SubComponentBuilder.class']

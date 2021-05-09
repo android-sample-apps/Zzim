@@ -11,9 +11,9 @@
 - [X] Model 세팅 (Rspository)
 - [X] ViewModel 세팅
 - [X] Paging 적용
-- [ ] Firebase 연동 및 공유 기능 적용
+- [X] Firebase 연동 및 공유 기능 적용
+- [X] 에러 대응
 - [ ] Unit Test 테스트코드 작성
-- [ ] API 에러 타입 별 대응
 - [ ] QA
 - [ ] Release
 - [ ] README 수정

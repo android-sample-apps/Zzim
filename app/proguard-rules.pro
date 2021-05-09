@@ -163,6 +163,5 @@
 -keep class android.database.sqlite.** { *; }
 -dontwarn android.database.sqlite.**
 
-
-#-keep class com.meuus90.daumbooksearch.model.schema.** { *; } //todo
-#-keep class com.meuus90.base.arch.util.network.entity.** { *; }
+-keep class com.meuus90.zzim.model.data.** { *; }
+-keep class com.meuus90.zzim.common.** { *; }

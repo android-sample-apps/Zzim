@@ -15,6 +15,9 @@ interface GoodsDao : BaseDao<Goods> {
     @Query("SELECT * FROM GoodsDoc")
     fun getGoodsFlow(): Flow<List<Goods>>
 
+    @Query("SELECT * FROM GoodsDoc")
+    fun getGoodsList(): List<Goods>
+
     @Query("DELETE FROM GoodsDoc WHERE id = :deleteId")
     suspend fun deleteGoods(deleteId: Int)
 

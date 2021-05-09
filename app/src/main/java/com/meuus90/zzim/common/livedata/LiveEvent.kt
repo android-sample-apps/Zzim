@@ -1,4 +1,4 @@
-package com.meuus90.zzim.common
+package com.meuus90.zzim.common.livedata
 
 import android.util.ArraySet
 import androidx.annotation.MainThread

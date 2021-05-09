@@ -6,7 +6,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.meuus90.zzim.BuildConfig
-import com.meuus90.zzim.common.LiveDataCallAdapterFactory
+import com.meuus90.zzim.common.livedata.LiveDataCallAdapterFactory
 import com.meuus90.zzim.model.source.local.Cache
 import com.meuus90.zzim.model.source.remote.api.RestAPI
 import com.orhanobut.logger.Logger

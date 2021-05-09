@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "435830864090",
+    "project_id": "zzim-b3a3a",
+    "storage_bucket": "zzim-b3a3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435830864090:android:f5679400b8d71339408de3",
+        "android_client_info": {
+          "package_name": "com.meuus90.zzim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435830864090-m78e7e18gdlreg4826kb1llv0r72asbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAek7tlIn4J2GBJC0jB8QZ-tqWA-DdUjpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435830864090-m78e7e18gdlreg4826kb1llv0r72asbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435830864090:android:5c00a171578e17a1408de3",
+        "android_client_info": {
+          "package_name": "com.meuus90.zzim.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435830864090-m78e7e18gdlreg4826kb1llv0r72asbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAek7tlIn4J2GBJC0jB8QZ-tqWA-DdUjpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435830864090-m78e7e18gdlreg4826kb1llv0r72asbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

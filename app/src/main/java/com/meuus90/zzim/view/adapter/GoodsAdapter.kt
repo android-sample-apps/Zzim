@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.meuus90.zzim.R
-import com.meuus90.zzim.common.BigDecimalExt.formatNumberString
-import com.meuus90.zzim.common.ViewExt.gone
-import com.meuus90.zzim.common.ViewExt.show
+import com.meuus90.zzim.common.util.BigDecimalExt.formatNumberString
+import com.meuus90.zzim.common.util.ViewExt.gone
+import com.meuus90.zzim.common.util.ViewExt.show
 import com.meuus90.zzim.databinding.ItemBannerBinding
 import com.meuus90.zzim.databinding.ItemProductBinding
 import com.meuus90.zzim.model.data.GoodsDataModel
@@ -179,8 +179,7 @@ class GoodsAdapter(
                 )
 
             binding.tvPrice.text = item.goods.actual_price.formatNumberString()
-//                tvName.text = item.goods.name
-            binding.tvName.text = item.goods.id.toString()
+            binding.tvName.text = item.goods.name
 
             if (item.goods.is_new) binding.tvNew.show() else binding.tvNew.gone()
             binding.tvBuying.text =

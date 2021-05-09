@@ -3,7 +3,7 @@ package com.meuus90.zzim.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.meuus90.zzim.common.LiveEvent
+import com.meuus90.zzim.common.livedata.LiveEvent
 import com.meuus90.zzim.model.data.request.Query
 import com.meuus90.zzim.model.source.remote.repository.HomeRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -3,9 +3,15 @@
 
     <string name="title_home">홈</string>
     <string name="title_zzim">좋아요</string>
+    <string name="title_alert">알림</string>
+    <string name="menu_share">공유</string>
+
+    <string name="button_configm">확인</string>
 
     <string name="product_badge_new">NEW</string>
     <string name="product_buying">%s개 구매중</string>
     <string name="product_percent">%s%%</string>
     <string name="product_banner_count">%d/%d</string>
+
+    <string name="error_no_favorite_list">찜 목록이 없습니다.</string>
 </resources>

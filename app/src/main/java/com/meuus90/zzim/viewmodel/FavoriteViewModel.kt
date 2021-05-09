@@ -1,12 +1,11 @@
 package com.meuus90.zzim.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.meuus90.zzim.model.data.response.Goods
 import com.meuus90.zzim.model.source.local.Cache
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,14 +22,16 @@ constructor(private val db: Cache) : ViewModel() {
 
     val goodsFlow = db.goodsDao().getGoodsFlow()
 
+    fun getFavoriteList() = db.goodsDao().getGoodsList()
+
     fun addFavorite(goods: Goods) {
-        GlobalScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             db.goodsDao().insert(goods)
         }
     }
 
     fun removeFavorite(goods: Goods) {
-        GlobalScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             db.goodsDao().deleteGoods(goods.id)
         }
     }
