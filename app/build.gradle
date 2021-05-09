@@ -183,6 +183,7 @@ dependencies {
     androidTestImplementation 'io.mockk:mockk-agent-android:1.10.6'
     testImplementation 'org.mockito:mockito-inline:3.5.13'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+    androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.1'
     androidTestImplementation 'com.google.truth:truth:1.1.2'
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
 
