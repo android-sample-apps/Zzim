@@ -17,7 +17,6 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        testInstrumentationRunnerArguments
         aaptOptions.cruncherEnabled = false
         applicationId "com.meuus90.zzim"
         minSdkVersion 23
@@ -29,6 +28,11 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
+    }
+
+    compileOptions {
+        setSourceCompatibility(JavaVersion.VERSION_1_8)
+        setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
 
     buildFeatures {
