@@ -114,10 +114,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             adapter.loadStateFlow
                 .distinctUntilChangedBy { it.append }
                 .collectLatest {
-                    val state = it.append
-                    if (state is LoadState.Error)
-                        baseActivity.createDialog(state.error.message)
-                    // check error state
+//                    val state = it.append
+//                    if (state is LoadState.Error) // check error state
+//                        baseActivity.createDialog(state.error.message)
+
                 }
         }
 

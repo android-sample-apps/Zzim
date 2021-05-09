@@ -15,6 +15,7 @@ import com.meuus90.zzim.common.util.ViewExt.show
 import com.meuus90.zzim.databinding.ItemBannerBinding
 import com.meuus90.zzim.databinding.ItemProductBinding
 import com.meuus90.zzim.model.data.GoodsDataModel
+import com.meuus90.zzim.model.data.response.Banner
 import com.meuus90.zzim.model.data.response.Goods
 import com.meuus90.zzim.view.activity.BaseActivity
 
@@ -33,7 +34,7 @@ class GoodsAdapter(
                     return if (oldItem is GoodsDataModel.Item && newItem is GoodsDataModel.Item) {
                         oldItem.goods.id == newItem.goods.id
                     } else if (oldItem is GoodsDataModel.Header && newItem is GoodsDataModel.Header) {
-                        oldItem.banners == newItem.banners
+                        oldItem.banners.toString() == newItem.banners.toString()
                     } else {
                         oldItem == newItem
                     }
@@ -46,7 +47,7 @@ class GoodsAdapter(
                     return if (oldItem is GoodsDataModel.Item && newItem is GoodsDataModel.Item) {
                         oldItem.goods.name == newItem.goods.name
                     } else if (oldItem is GoodsDataModel.Header && newItem is GoodsDataModel.Header) {
-                        oldItem.banners == newItem.banners
+                        oldItem.banners.toString() == newItem.banners.toString()
                     } else {
                         oldItem == newItem
                     }
@@ -102,50 +103,51 @@ class GoodsAdapter(
         notifyDataSetChanged()
     }
 
-    var bannerAdapter: BannerViewPagerAdapter? = null
-
     class BannerHolder(
         private val binding: ItemBannerBinding,
         private val adapter: GoodsAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
+        var banners: List<Banner> = listOf()
+
         @ExperimentalStdlibApi
         fun bind(item: GoodsDataModel.Header) {
-            val banners = item.banners
-            binding.viewPager.let {
-                if (adapter.bannerAdapter == null)
-                    adapter.bannerAdapter =
+            if (banners.toString() != item.banners.toString()) {
+                banners = item.banners
+
+                binding.viewPager.let {
+                    val bannerAdapter =
                         BannerViewPagerAdapter.getInstance(adapter.context as BaseActivity<*>)
+                    it.adapter = bannerAdapter
+                    bannerAdapter.setItems(banners)
 
-                it.adapter = adapter.bannerAdapter
-                adapter.bannerAdapter?.let { it.setItems(banners) }
+                    it.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                        override fun onPageScrolled(
+                            position: Int,
+                            positionOffset: Float,
+                            positionOffsetPixels: Int
+                        ) {
+                        }
 
-                it.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                    }
+                        override fun onPageSelected(position: Int) {
+                            binding.tvPosition.text =
+                                adapter.context.getString(
+                                    R.string.product_banner_count,
+                                    position + 1,
+                                    banners.size
+                                )
+                        }
 
-                    override fun onPageSelected(position: Int) {
-                        binding.tvPosition.text =
-                            adapter.context.getString(
-                                R.string.product_banner_count,
-                                position + 1,
-                                banners.size
-                            )
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                    }
-                })
+                        override fun onPageScrollStateChanged(state: Int) {
+                        }
+                    })
+                }
+                binding.tvPosition.text =
+                    adapter.context.getString(
+                        R.string.product_banner_count,
+                        1,
+                        banners.size
+                    )
             }
-            binding.tvPosition.text =
-                adapter.context.getString(
-                    R.string.product_banner_count,
-                    1,
-                    banners.size
-                )
         }
     }
 

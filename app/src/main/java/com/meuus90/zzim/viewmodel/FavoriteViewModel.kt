@@ -35,4 +35,10 @@ constructor(private val db: Cache) : ViewModel() {
             db.goodsDao().deleteGoods(goods.id)
         }
     }
+
+    fun updateFavorites(goods: List<Goods>) {
+        viewModelScope.launch {
+            db.goodsDao().insert(goods.toMutableList())
+        }
+    }
 }

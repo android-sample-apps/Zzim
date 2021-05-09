@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-allopen'
 apply plugin: 'jacoco'
@@ -11,13 +12,16 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
     defaultConfig {
         multiDexEnabled true
         testInstrumentationRunnerArguments
         aaptOptions.cruncherEnabled = false
         applicationId "com.meuus90.zzim"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -156,7 +160,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
     testImplementation "junit:junit:$junit_version"
@@ -174,27 +177,28 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     testImplementation 'io.mockk:mockk:1.10.6'
     androidTestImplementation 'io.mockk:mockk-android:1.10.6'
-    testImplementation 'org.mockito:mockito-inline:3.3.3'
+    testImplementation 'org.mockito:mockito-inline:3.5.13'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     androidTestImplementation 'com.google.truth:truth:1.1.2'
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
 
+    implementation "androidx.multidex:multidex:$androidx_multidex_version"
     implementation "androidx.core:core-ktx:$androidx_core_ktx_version"
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation "androidx.cardview:cardview:$androidx_cardview_version"
     implementation "androidx.browser:browser:$androidx_browser_version"
     implementation "androidx.annotation:annotation:$androidx_version"
-    implementation "androidx.multidex:multidex:$androidx_multidex_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
 
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$arch_lifecycle_version"
 
     implementation "androidx.room:room-runtime:$arch_room_version"

@@ -7,10 +7,11 @@ import com.meuus90.zzim.common.constant.AppConfig
 import timber.log.Timber
 
 object DynamicLinkManager {
-    fun makeDynamicLink(onSuccess: (uri: String) -> Unit) {
+    fun makeDynamicLink(params: String, onSuccess: (uri: String) -> Unit) {
         val link = Uri.Builder()
             .scheme("https")
-            .authority("meuus90.page.link")
+            .authority("zzim-b3a3a.firebaseapp.com")
+            .appendQueryParameter(AppConfig.keyFavorites, params)
             .build()
 
         FirebaseDynamicLinks.getInstance().createDynamicLink()
