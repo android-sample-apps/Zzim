@@ -1,7 +1,7 @@
 package com.meuus90.zzim.common.livedata
 
 import androidx.lifecycle.LiveData
-import com.meuus90.zzim.common.ApiResponse
+import com.meuus90.zzim.common.network.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback

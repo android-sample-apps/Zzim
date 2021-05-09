@@ -98,7 +98,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         lifecycleScope.launchWhenCreated {
             goodsViewModel.goods
                 .collectLatest {
-//                    binding.recyclerView.show()
                     adapter.submitData(it)
                 }
         }
@@ -117,7 +116,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 //                    val state = it.append
 //                    if (state is LoadState.Error) // check error state
 //                        baseActivity.createDialog(state.error.message)
-
                 }
         }
 

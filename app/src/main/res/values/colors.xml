@@ -13,10 +13,10 @@
 
     <color name="transparent">#00000000</color>
 
-    <color name="placeHolderColor0">#33ffccbc</color>
-    <color name="placeHolderColor1">#33ffe0b2</color>
-    <color name="placeHolderColor2">#33fff9c4</color>
-    <color name="placeHolderColor3">#33dcedc8</color>
-    <color name="placeHolderColor4">#33b2ebf2</color>
-    <color name="placeHolderColor5">#33d1c4e9</color>
+    <color name="placeHolderColor0">#ccffccbc</color>
+    <color name="placeHolderColor1">#ccffe0b2</color>
+    <color name="placeHolderColor2">#ccfff9c4</color>
+    <color name="placeHolderColor3">#ccdcedc8</color>
+    <color name="placeHolderColor4">#ccb2ebf2</color>
+    <color name="placeHolderColor5">#ccd1c4e9</color>
 </resources>

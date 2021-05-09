@@ -8,7 +8,7 @@ import com.meuus90.zzim.model.source.remote.api.RestAPI
 class ProductPagingSource(private val restAPI: RestAPI) : PagingSource<Int, GoodsDataModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GoodsDataModel> {
         return try {
-            val goods: List<GoodsDataModel> = if (params.key == null) {
+            val goods: List<GoodsDataModel> = if (params.key == null || params.key == 0) {
                 val home = restAPI.getHome()
 
                 val list = mutableListOf<GoodsDataModel>(GoodsDataModel.Header(home.banners))

@@ -1,4 +1,4 @@
-package com.meuus90.zzim.common
+package com.meuus90.zzim.common.network
 
 import retrofit2.Response
 import timber.log.Timber

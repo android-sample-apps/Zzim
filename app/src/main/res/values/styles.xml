@@ -1,19 +1,11 @@
 <resources>
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/noto_sans_cj_kkr_regular</item>
     </style>
 
-<!--    <style name="DialogFullscreenTransparent" parent="Theme.MaterialComponents.Light.Dialog">-->
-<!--        <item name="android:windowNoTitle">true</item>-->
-<!--        <item name="android:windowLightStatusBar">true</item>-->
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-<!--        <item name="android:windowIsFloating">false</item>-->
-<!--        <item name="android:backgroundDimEnabled">true</item>-->
-<!--    </style>-->
 
     <style name="ToolBarTitle">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr_bold</item>

@@ -1,5 +1,6 @@
 package com.meuus90.zzim.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 class GoodsViewModel
 @Inject
 constructor(private val repository: HomeRepository) : ViewModel() {
-    lateinit var schemaLiveData: LiveEvent<Query>
+    lateinit var schemaLiveData: MutableLiveData<Query>
 
     init {
         viewModelScope.launch {

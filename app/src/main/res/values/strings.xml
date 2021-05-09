@@ -13,5 +13,5 @@
     <string name="product_percent">%s%%</string>
     <string name="product_banner_count">%d/%d</string>
 
-    <string name="error_no_favorite_list">찜 목록이 없습니다.</string>
+    <string name="error_no_favorite_list">좋아요 목록이 없습니다.</string>
 </resources>

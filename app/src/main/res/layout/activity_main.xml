@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:scrollbars="none"
     android:scrollingCache="true">
 
@@ -13,8 +13,8 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="56dp"
         android:overScrollMode="never"
+        android:paddingBottom="56dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,8 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:translationZ="10dp"
-        app:elevation="10dp">
+        android:translationZ="15dp"
+        android:elevation="15dp"
+        app:elevation="15dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -61,9 +62,10 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:background="@android:color/white"
-        android:translationZ="10dp"
-        app:elevation="10dp"
+        android:background="@color/white"
+        android:translationZ="15dp"
+        android:elevation="15dp"
+        app:elevation="15dp"
         app:itemBackground="@color/transparent"
         app:itemIconSize="24dp"
         app:menu="@menu/navigation_tab" />
