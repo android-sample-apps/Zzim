@@ -97,7 +97,7 @@ class FavoritesAdapter(
                     item.sell_count.formatNumberString()
                 )
 
-            binding.cbFavorite.isChecked = true
+            binding.cbFavorite.gone()
 
             binding.container.setOnClickListener {
                 adapter.doOnClick(item)
