@@ -15,5 +15,5 @@
 - [X] 에러 대응
 - [X] Unit Test 테스트코드 작성
 - [X] QA
-- [ ] Release
+- [X] Release (to branch master)
 - [ ] README 수정
