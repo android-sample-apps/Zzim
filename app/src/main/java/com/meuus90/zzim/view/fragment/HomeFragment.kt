@@ -14,6 +14,7 @@ import com.google.android.material.internal.ViewUtils
 import com.meuus90.zzim.databinding.FragmentHomeBinding
 import com.meuus90.zzim.model.data.request.Query
 import com.meuus90.zzim.model.data.response.Goods
+import com.meuus90.zzim.model.source.remote.paging.ProductPagingSource
 import com.meuus90.zzim.view.adapter.GoodsAdapter
 import com.meuus90.zzim.viewmodel.FavoriteViewModel
 import com.meuus90.zzim.viewmodel.GoodsViewModel
@@ -113,9 +114,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             adapter.loadStateFlow
                 .distinctUntilChangedBy { it.append }
                 .collectLatest {
-//                    val state = it.append
-//                    if (state is LoadState.Error) // check error state
-//                        baseActivity.createDialog(state.error.message)
+                    val state = it.append
+                    if (state is LoadState.Error) { // check error state
+                        if (state.error.message != ProductPagingSource.ERROR_MESSAGE_PAGING_END)
+                            baseActivity.createDialog(state.error.message)
+                    }
                 }
         }
 
