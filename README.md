@@ -2,7 +2,7 @@
 
   * [소스 코드 링크 GitHub](https://github.com/meuus90/Zzim)
 
-  * [APK 링크 GitHub](https://github.com/meuus90/Zzim/zzim-prod-release-0.0.1.apk)
+  * [APK 링크 GitHub](zzim-prod-release-0.0.1.apk)
 
 
 ## 목차
@@ -12,7 +12,7 @@
     - [1. Dependency Injection](#1-dependency-injection)
     - [2. Design Pattern](#2-design-pattern)
     - [3. Paging](#3-paging)
-    - [4. Local DB](#4-local-dbi)
+    - [4. Local DB](#4-local-db)
     - [5. CI](#5-ci)
     - [6. 기타](#6-기타)
 - [작업 순서 및 체크리스트](#작업-순서-및-체크리스트)
